@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities
+@tailwind utilities;
+
+body {
+    @apply w-screen h-screen bg-white dark:bg-dark dark:text-white;
+}
