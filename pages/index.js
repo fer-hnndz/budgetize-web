@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Tabs from "../components/tabs"
-
+import MonthlyBalance from "../components/monthly-balance"
 export default function Home() {
   return (
     <>
@@ -14,11 +14,9 @@ export default function Home() {
 
 
         <Tabs />
-        <div className="flex">
+        <div className="flex flex-col lg:flex-row lg: mx-10">
+          <MonthlyBalance income="1000" expense="500" />
 
-          <div>
-            <h1>Income this Month</h1>
-          </div>
         </div>
       </div>
     </>
