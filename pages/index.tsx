@@ -5,13 +5,15 @@ import Tabs from "../components/tabs"
 import MonthlyBalance from "../components/monthly-balance"
 import AccountsTable from '../components/accounts-table'
 import { Account } from '../utils/account'
+import React from 'react';
 
 export default function Home() {
-
+  // Placeholders
   let accounts = [
     new Account("Checking", 1000),
     new Account("Savings", 2000),
   ]
+
   return (
     <>
       <Head>

@@ -1,13 +1,15 @@
 import Head from 'next/head'
 import Tabs from '../components/tabs'
+import React from 'react';
+
 export default function Transactions() {
     return (
         <>
             <Head>
-                <title>Budgetize | Transactions</title>
+                <title>Budgetize | Budgets</title>
             </Head>
-            <Tabs active={1} />
-            <h1>Transactions</h1>
+            <Tabs active={2} />
+            <h1>Budgets</h1>
         </>
     )
 }

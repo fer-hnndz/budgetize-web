@@ -1,4 +1,6 @@
-export default function DefaultBalance({ income, expense }) {
+import React from 'react';
+
+export default function MonthlyBalance({ income, expense }) {
     return (
         <>
             <div className="text-center justify-centert mt-4">
