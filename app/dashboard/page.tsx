@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Tabs from "../components/tabs"
-import MonthlyBalance from "../components/monthly-balance"
-import AccountsTable from '../components/accounts-table'
-import { Account } from '../utils/account'
+import Tabs from "../../components/tabs"
+import MonthlyBalance from "../../components/monthly-balance"
+import AccountsTable from '../../components/accounts-table'
+import { Account } from '../../utils/account'
 import React from 'react';
 
 export default function Home() {
