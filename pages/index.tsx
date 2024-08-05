@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import Tabs from "../components/tabs"
 import MonthlyBalance from "../components/monthly-balance"
 import AccountsTable from '../components/accounts-table'
