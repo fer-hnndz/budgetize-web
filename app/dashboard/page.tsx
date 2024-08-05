@@ -1,9 +1,13 @@
-import Head from 'next/head'
 import Tabs from "../../components/tabs"
 import MonthlyBalance from "../../components/monthly-balance"
 import AccountsTable from '../../components/accounts-table'
 import { Account } from '../../utils/account'
 import React from 'react';
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Budgetize | Dashboard",
+}
 
 export default function Home() {
   // Placeholders
@@ -12,13 +16,8 @@ export default function Home() {
     new Account("Savings", 2000),
   ]
 
-  // ! FLEX DIRECTION IS NOT APPLYING PROPERLY
   return (
     <>
-      <Head>
-        <title>Budgetize | Main Menu</title>
-      </Head>
-
       <Tabs active={0} />
       <div className="flex flex-col lg:flex-row lg:gap-x-96 mx-10 content-center justify-center">
         <AccountsTable accounts={accounts} />
