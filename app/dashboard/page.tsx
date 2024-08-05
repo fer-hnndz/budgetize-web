@@ -12,6 +12,7 @@ export default function Home() {
     new Account("Savings", 2000),
   ]
 
+  // ! FLEX DIRECTION IS NOT APPLYING PROPERLY
   return (
     <>
       <Head>
@@ -19,7 +20,7 @@ export default function Home() {
       </Head>
 
       <Tabs active={0} />
-      <div className="flex flex-col lg:flex-row lg: mx-10 lg:gap-x-96 content-center justify-center">
+      <div className="flex flex-col lg:flex-row lg:gap-x-96 mx-10 content-center justify-center">
         <AccountsTable accounts={accounts} />
         <MonthlyBalance income="1000" expense="500" />
 
