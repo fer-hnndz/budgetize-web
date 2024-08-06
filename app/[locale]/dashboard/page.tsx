@@ -1,11 +1,14 @@
-import Tabs from "../../components/tabs"
-import MonthlyBalance from "../../components/monthly-balance"
-import AccountsTable from '../../components/accounts-table'
-import { Account } from '../../utils/account'
+import Tabs from "../../../components/tabs"
+import MonthlyBalance from "../../../components/monthly-balance"
+import AccountsTable from '../../../components/accounts-table'
+import { Account } from '../../../utils/account'
 import React from 'react';
 import { Metadata } from 'next'
-import ButtonLink from "../../components/button-green";
+import ButtonLink from "../../../components/button-green";
+import { useTranslations } from "next-intl";
 
+
+const t = useTranslations("Dashboard")
 export const metadata: Metadata = {
   title: "Budgetize | Dashboard",
 }
@@ -16,6 +19,8 @@ export default function Home() {
     new Account("Checking", 1000),
     new Account("Savings", 2000),
   ]
+
+
 
   return (
     <>

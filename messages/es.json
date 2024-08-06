@@ -1,0 +1,8 @@
+{
+    "Dashboard": {
+        "pageTitle": "Budgetize | Menú pageTitle",
+        "monthlyIncome": "Ingresos Mensuales",
+        "monthlyExpense": "Gastos Mensuales",
+        "monthlyBalance": "Balance Mensual"
+    }
+}
