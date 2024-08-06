@@ -3,6 +3,14 @@
         "pageTitle": "Budgetize | Dashboard",
         "monthlyIncome": "Monthly Income",
         "monthlyExpense": "Monthly Expense",
-        "monthlyBalance": "Monthly Balance"
+        "monthlyBalance": "Monthly Balance",
+        "accountName": "Account Name",
+        "accountBalance": "Balance",
+        "addAccount": "Add Account",
+        "addTransaction": "Add Transaction",
+        "tabAccounts": "Accounts",
+        "tabTransactions": "Transaction",
+        "tabBudgets": "Budgets",
+        "tabSettings": "Settings"
     }
 }

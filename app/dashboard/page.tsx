@@ -1,14 +1,12 @@
-import Tabs from "../../../components/tabs"
-import MonthlyBalance from "../../../components/monthly-balance"
-import AccountsTable from '../../../components/accounts-table'
-import { Account } from '../../../utils/account'
+import Tabs from "../../components/tabs"
+import MonthlyBalance from "../../components/monthly-balance"
+import AccountsTable from '../../components/accounts-table'
+import { Account } from '../../utils/account'
 import React from 'react';
 import { Metadata } from 'next'
-import ButtonLink from "../../../components/button-green";
+import ButtonLink from "../../components/button-green";
 import { useTranslations } from "next-intl";
 
-
-const t = useTranslations("Dashboard")
 export const metadata: Metadata = {
   title: "Budgetize | Dashboard",
 }
@@ -20,8 +18,7 @@ export default function Home() {
     new Account("Savings", 2000),
   ]
 
-
-
+  const t = useTranslations("Dashboard")
   return (
     <>
       <Tabs active={0} />
@@ -31,8 +28,8 @@ export default function Home() {
       </div>
 
       <div className="flex flex-auto justify-center mt-8 gap-x-4">
-        <ButtonLink href="/add-account" text="New Account" />
-        <ButtonLink href="/add-transaction" text="New Transaction" />
+        <ButtonLink href="/add-account" text={t("addAccount")} />
+        <ButtonLink href="/add-transaction" text={t("addTransaction")} />
       </div>
     </>
   )

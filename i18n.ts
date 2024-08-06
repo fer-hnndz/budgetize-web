@@ -1,14 +1,20 @@
-import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import locales from "./utils/locales";
+import { cookies, headers } from 'next/headers';
 
-// Can be imported from a shared config
+export default getRequestConfig(async () => {
+    // Provide a static locale, fetch a user setting,
+    // read from `cookies()`, `headers()`, etc.
 
-export default getRequestConfig(async ({ locale }) => {
-    // Validate that the incoming `locale` parameter is valid
-    if (!locales.includes(locale as any)) notFound();
+
+    let cookieLocale = cookies().get('NEXT_LOCALE')
+    let locale = ""
+
+    if (!cookieLocale) locale = "en"
+    else locale = cookieLocale.value
+
 
     return {
-        messages: (await import(`../messages/${locale}.json`)).default
+        locale,
+        messages: (await import(`./messages/${locale}.json`)).default
     };
 });

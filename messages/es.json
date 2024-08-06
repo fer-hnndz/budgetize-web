@@ -1,8 +1,16 @@
 {
     "Dashboard": {
-        "pageTitle": "Budgetize | Menú pageTitle",
-        "monthlyIncome": "Ingresos Mensuales",
-        "monthlyExpense": "Gastos Mensuales",
-        "monthlyBalance": "Balance Mensual"
+        "pageTitle": "Budgetize | Menú",
+        "monthlyIncome": "Ingresos del Mes",
+        "monthlyExpense": "Gastos del Mes",
+        "monthlyBalance": "Balance del Mes",
+        "accountName": "Nombre de la Cuenta",
+        "accountBalance": "Balance",
+        "addAccount": "Agregar Cuenta",
+        "addTransaction": "Agregar Transascción",
+        "tabAccounts": "Cuentas",
+        "tabTransactions": "Transacciones",
+        "tabBudgets": "Presupuestos",
+        "tabSettings": "Ajustes"
     }
 }

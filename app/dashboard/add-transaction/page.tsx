@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react"
-import { Account } from "../../utils/account"
+import { Account } from "../../../utils/account"
+import React from "react"
 
 function onChange(event: any, setter: any) {
     setter(event.target.value)

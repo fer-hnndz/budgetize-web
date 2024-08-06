@@ -1,5 +1,6 @@
 import createMiddleware from 'next-intl/middleware';
 import locales from './utils/locales';
+
 export default createMiddleware({
     // A list of all locales that are supported
     locales: locales,
@@ -8,8 +9,7 @@ export default createMiddleware({
     defaultLocale: 'en'
 });
 
-let localeStr = locales.join('|');
 export const config = {
     // Match only internationalized pathnames
-    matcher: ['/', `/(${localeStr}))/:path*`]
+    matcher: ['/', `/(en|es)/:path*`]
 };
