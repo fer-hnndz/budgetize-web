@@ -27,7 +27,7 @@ export default function Home() {
         <MonthlyBalance income="1000" expense="500" />
       </div>
 
-      <div className="flex flex-auto justify-center mt-8 gap-x-4">
+      <div className="flex flex-auto justify-center mt-8 gap-x-4 mx-4 md:mx-0">
         <ButtonLink href="/add-account" text={t("addAccount")} />
         <ButtonLink href="/add-transaction" text={t("addTransaction")} />
       </div>
