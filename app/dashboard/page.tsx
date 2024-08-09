@@ -1,29 +1,45 @@
+"use client"
+
 import Tabs from "../../components/tabs"
 import MonthlyBalance from "../../components/monthly-balance"
 import AccountsTable from '../../components/accounts-table'
-import { Account } from '../../utils/account'
+import Account from '../../utils/account'
+import ButtonLink from "../../components/button-green";
 import React from 'react';
 import { Metadata } from 'next'
-import ButtonLink from "../../components/button-green";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import localstorageDB from "localstoragedb";
 
-export const metadata: Metadata = {
-  title: "Budgetize | Dashboard",
-}
+// export const metadata: Metadata = {
+//   title: "Budgetize | Dashboard",
+// }
 
 export default function Home() {
-  // Placeholders
-  let accounts = [
-    new Account("Checking", 1000),
-    new Account("Savings", 2000),
-  ]
+
+  useEffect(() => {
+    // Fetch accounts from local storage
+    let lib = new localstorageDB("budgetize", localStorage);
+
+    if (!lib.tableExists("accounts")) {
+      lib.createTable("accounts", ["name", "currency"])
+      console.warn("Creating accounts table...")
+    }
+
+    if (!lib.tableExists("transactions")) {
+      lib.createTable("transactions", ["account_id", "amount", "date", "description", "category"])
+      console.warn("Creating transactions table...")
+    }
+
+    lib.commit()
+  })
 
   const t = useTranslations("Dashboard")
   return (
     <>
       <Tabs active={0} />
       <div className="flex flex-col lg:flex-row lg:gap-x-96 mx-10 content-center justify-center">
-        <AccountsTable accounts={accounts} />
+        <AccountsTable accounts={[]} />
         <MonthlyBalance income="1000" expense="500" />
       </div>
 
