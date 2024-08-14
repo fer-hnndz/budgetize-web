@@ -44,8 +44,8 @@ export default function Home() {
       </div>
 
       <div className="flex flex-auto justify-center mt-8 gap-x-4 mx-4 md:mx-0">
-        <ButtonLink href="/add-account" text={t("addAccount")} />
-        <ButtonLink href="/add-transaction" text={t("addTransaction")} />
+        <ButtonLink href="/dashboard/create-account" text={t("addAccount")} />
+        <ButtonLink href="/dashboard/add-transaction" text={t("addTransaction")} />
       </div>
     </>
   )

@@ -47,7 +47,6 @@ export default function Tabs({ active }) {
                         <Link href="/dashboard/settings">{t("tabSettings")}</Link>
                     </div>
                 </div>
-
             </div >
 
             <div className="md:hidden flex justify-end text-3xl mr-8 mt-4">
