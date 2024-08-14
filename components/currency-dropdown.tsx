@@ -81,7 +81,9 @@ export default function CurrencyDropdown() {
     }
     return (
         <div>
-            <button onClick={handleDropdownClick} className="bg-white dark:bg-dark dark:text-white border border-zinc-700 rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-1 font-semibold" type="button">({currency.code}) {currency.name}<FaAngleDown className="mt-1 ml-2" /></button>
+            <button onClick={handleDropdownClick} className="bg-white dark:bg-inputBG dark:text-white rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-2 font-semibold" type="button">
+                ({currency.code}) {currency.name}<FaAngleDown className="mt-1 ml-2" />
+            </button>
 
             <div id="dropdown" className="z-10 hidden bg-dark rounded-lg shadow w-44 dark:bg-white">
                 <input className="w-auto h-fit py-1 text-sm m-1 border-1 rounded-lg border-zinc-600 text-white dark:text-black" placeholder=" Search Currency" type="text" onChange={handleSearch}></input>

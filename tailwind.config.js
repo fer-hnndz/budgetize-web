@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       "colors": {
         "dark": "#27272a",
+        "inputBG": "#171717",
       },
     },
   },

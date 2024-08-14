@@ -4,7 +4,7 @@ import Tabs from "../../components/tabs"
 import MonthlyBalance from "../../components/monthly-balance"
 import AccountsTable from '../../components/accounts-table'
 import Account from '../../utils/account'
-import ButtonLink from "../../components/button-green";
+import ButtonLink from "../../components/button-link";
 import React from 'react';
 import { Metadata } from 'next'
 import { useTranslations } from "next-intl";
@@ -44,8 +44,8 @@ export default function Home() {
       </div>
 
       <div className="flex flex-auto justify-center mt-8 gap-x-4 mx-4 md:mx-0">
-        <ButtonLink href="/dashboard/create-account" text={t("addAccount")} />
-        <ButtonLink href="/dashboard/add-transaction" text={t("addTransaction")} />
+        <ButtonLink href="/dashboard/create-account" text={t("addAccount")} variant={"primary"} />
+        <ButtonLink href="/dashboard/add-transaction" text={t("addTransaction")} variant={"success"} />
       </div>
     </>
   )
