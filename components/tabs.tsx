@@ -11,7 +11,7 @@ export default function Tabs({ active }) {
     const t = useTranslations("Dashboard")
 
     function showDropdown() {
-        let dropdown = document.getElementById("dropdown")
+        let dropdown = document.getElementById("dropdownTabs")
         if (!dropdown) return;
 
         dropdown.classList.remove("hidden")
@@ -19,7 +19,7 @@ export default function Tabs({ active }) {
     }
 
     function hideDropdown() {
-        let dropdown = document.getElementById("dropdown")
+        let dropdown = document.getElementById("dropdownTabs")
         if (!dropdown) return;
 
         dropdown.classList.remove("flex")
@@ -28,7 +28,7 @@ export default function Tabs({ active }) {
 
     return (
         <>
-            <div id="dropdown" className="overflow-clip select-none hidden flex-col w-screen h-screen md:display-none absolute bg-white dark:bg-dark transition-opacity ease-in-out">
+            <div id="dropdownTabs" className="overflow-clip select-none hidden flex-col w-screen h-screen md:display-none absolute bg-white dark:bg-dark transition-opacity ease-in-out">
                 <button onClick={hideDropdown} className="flex flex-row justify-end md:hidden float-end mr-8 mt-2 font-extrabold text-2xl">X</button>
                 <div className="gap-y-5 flex flex-col mt-20 text-3xl ml-4 font-extrabold">
                     <div className={hoverClasses + (active == 0 ? activeClass : "")}>

@@ -1,6 +1,6 @@
 
 type Variant = "primary" | "error" | "success" | "warning"
-export default function Button({ text, variant }: { text: string, variant: Variant }) {
+export default function Button({ text, variant, onClick }: { text: string, variant: Variant, onClick: CallableFunction }) {
 
     let bgColor = ""
 
@@ -25,7 +25,7 @@ export default function Button({ text, variant }: { text: string, variant: Varia
     let classes = "text-white px-4 py-2 w-fit h-fit rounded-md shadow hover:-translate-y-1 transition duration-75 ease-out " + bgColor
 
     return (
-        <button className={classes}>{text}</button>
+        <button onClick={onClick} className={classes}>{text}</button>
     )
 
 }

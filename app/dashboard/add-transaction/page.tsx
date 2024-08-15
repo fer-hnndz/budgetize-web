@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import { Account } from "../../../utils/account"
+import Account from "../../../utils/account"
 import React from "react"
 
 function onChange(event: any, setter: any) {
@@ -8,14 +8,11 @@ function onChange(event: any, setter: any) {
 }
 export default function AddTransaction() {
 
-    let accounts = [
-        new Account("Checking", 1000),
-        new Account("Savings", 2000),
-    ]
+    let accounts = []
     const [selectedAccount, setSelectedAccount] = useState(accounts[0])
 
     function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        setSelectedAccount(accounts.find(account => account.name === event.target.value) as Account)
+        //setSelectedAccount(accounts.find(account => account.name === event.target.value) as Account)
     }
 
     return (

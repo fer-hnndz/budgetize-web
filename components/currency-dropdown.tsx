@@ -4,7 +4,7 @@ import React from "react"
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-export default function CurrencyDropdown() {
+export default function CurrencyDropdown({ callback }: { callback: CallableFunction }) {
     const CURRENCIES: { code: string, name: string }[] = [
         { code: "USD", name: "United States Dollar" },
         { code: "EUR", name: "Euro" },
@@ -29,6 +29,7 @@ export default function CurrencyDropdown() {
     ]
 
     let [currency, setCurrency] = useState(CURRENCIES[0])
+    callback(currency.code)
 
     function handleDropdownClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
