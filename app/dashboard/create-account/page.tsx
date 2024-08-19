@@ -14,9 +14,7 @@ export default function CreateAccount() {
     function saveAccount() {
         let db = new localStorageDB("budgetize", localStorage);
         db.insert("accounts", { name: accountName, currency: selectedCurrency })
-        let acc = db.queryAll("accounts", {
-            name: accountName
-        })[0]
+        let acc = db.queryAll("accounts", { query: { name: accountName } })[0]
 
         console.warn(acc);
 

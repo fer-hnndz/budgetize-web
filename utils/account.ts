@@ -18,6 +18,10 @@ export default class Account {
         });
     }
 
+    getBalance(): number {
+        return this.balance
+    }
+
     static getAccountsFromStorage(storage: typeof localStorage): Account[] {
         let accounts: Account[] = [];
 
@@ -26,8 +30,17 @@ export default class Account {
         if (!db.tableExists("accounts")) return accounts;
 
         db.queryAll("accounts", {}).forEach((acc) => {
-            let accountTransactions = db.queryAll("transactions", { account_id: acc.ID })
-            accounts.push(new Account(acc.ID, acc.name, acc.currency, accountTransactions));
+            let accountTransactions = db.queryAll("transactions", { query: { account_id: acc.ID } })
+
+            let transactions: Transaction[] = []
+
+            accountTransactions.forEach((transaction) => {
+                transactions.push(
+                    new Transaction(transaction.account_id, transaction.amount, transaction.description, transaction.timestamp, transaction.visible)
+                )
+            })
+
+            accounts.push(new Account(acc.ID, acc.name, acc.currency, transactions));
         });
 
         return accounts;
