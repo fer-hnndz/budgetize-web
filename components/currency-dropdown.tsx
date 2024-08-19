@@ -86,7 +86,7 @@ export default function CurrencyDropdown({ callback }: { callback: CallableFunct
                 ({currency.code}) {currency.name}<FaAngleDown className="mt-1 ml-2" />
             </button>
 
-            <div id="dropdown" className="z-10 hidden bg-dark rounded-lg shadow w-44 dark:bg-white">
+            <div id="dropdown" className="z-10 hidden bg-dark rounded-lg shadow w-44 dark:bg-white absolute">
                 <input className="w-auto h-fit py-1 text-sm m-1 border-1 rounded-lg border-zinc-600 text-white dark:text-black" placeholder=" Search Currency" type="text" onChange={handleSearch}></input>
                 <ul className="py-2 text-sm text-white dark:text-black min-h-40 max-h-96 overflow-y-scroll">
                     {CURRENCIES.map((currency) => (
