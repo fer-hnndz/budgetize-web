@@ -38,7 +38,7 @@ export default function AccountsTable() {
                 {accounts.map((account) => (
                     <tr key={account.name}>
                         <td className="hover:bg-orange-500 transition duration-100 ease-in-out">{account.name}</td>
-                        <td className="hover:bg-orange-500">{format.number(account.getBalance(), { style: "currency", currency: account.currency, currencyDisplay: "code" })}</td>
+                        <td className="hover:bg-orange-500">{format.number(account.balance, { style: "currency", currency: account.currency, currencyDisplay: "code" })}</td>
                     </tr>
                 ))}
             </tbody>

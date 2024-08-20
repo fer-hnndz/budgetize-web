@@ -1,25 +1,21 @@
 import localStorageDB from "localstoragedb";
 import Transaction from "./transaction";
 export default class Account {
-    id: number;
-    name: string;
-    balance: number;
-    currency: string;
+    readonly id: number;
+    readonly name: string;
+    readonly currency: string;
+    balance: number
 
     constructor(id: number, name: string, currency: string, transactions: Transaction[] = []) {
         this.id = id;
         this.name = name;
         this.currency = currency;
-        this.balance = 0.0;
+        this.balance = 0.0
 
-        // Load Balance
         transactions.forEach((transaction) => {
-            this.balance += transaction.amount;
-        });
-    }
+            this.balance += transaction.amount
+        })
 
-    getBalance(): number {
-        return this.balance
     }
 
     static getAccountsFromStorage(storage: typeof localStorage): Account[] {
@@ -44,5 +40,26 @@ export default class Account {
         });
 
         return accounts;
+    }
+
+    static fromId(id: number, storage: typeof localStorage): Account | null {
+        const db = new localStorageDB("budgetize", localStorage)
+
+        if (!db.tableExists("accounts")) return null;
+
+        let accounts: Object[] = db.queryAll("accounts", { query: { ID: id } })
+        if (accounts.length == 0) return null;
+
+        let acc = accounts[0]
+
+        let transactions = db.queryAll("transactions", { query: { account_id: id } })
+        let transactionObjects: Transaction[] = []
+
+        transactions.forEach((t) => {
+            transactionObjects.push(new Transaction(t.account_id, t.amount, t.description, t.timestamp, t.visible))
+        })
+
+        return new Account(acc.ID, acc.name, acc.currency, transactionObjects);
+
     }
 }
