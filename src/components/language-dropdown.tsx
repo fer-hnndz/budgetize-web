@@ -3,19 +3,18 @@
 import React from "react"
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import { useEffect, useTransition } from "react";
+import { getUserLocale, setUserLocale } from "../services/locale";
 
-/*
-@param {object} props
-@property callback - A function that will be executed to save the currency in the localStorage.
-*/
-export default function LanguageDropwdown({ parentCallback }: { parentCallback: CallableFunction }) {
+export default function LanguageDropwdown() {
     const SUPPORTED_LANGUAGES: { code: string, name: string }[] = [
         { code: "en", name: "English" },
         { code: "es", name: "Español" },
     ]
 
-    // Set a random currency as default
+    // Set english language as default
     let [lang, setLang] = useState(SUPPORTED_LANGUAGES[0])
+    let [pending, startTransition] = useTransition()
 
     // Hides/Shows the dropwdown
     function handleDropdownClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -51,7 +50,7 @@ export default function LanguageDropwdown({ parentCallback }: { parentCallback: 
 
     }
 
-    // Updates the selected currency
+    // Saves the selected language
     function handleLangChange(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault()
 
@@ -60,16 +59,32 @@ export default function LanguageDropwdown({ parentCallback }: { parentCallback: 
 
         let selectedLang = event.currentTarget.parentElement?.getAttribute("data-key")
         if (!selectedLang) return;
-
-        const lang = SUPPORTED_LANGUAGES.find((lang) => lang.code === selectedLang)
-        if (!lang) return;
-        setLang(lang)
-        parentCallback(lang.code) // Send to parent the current currency
+        updateLocale(selectedLang)
 
         // Close the dropdown
         dropdown.classList.toggle("hidden")
+    }
+
+    function updateLocale(newLocale: string) {
+        const foundLang = SUPPORTED_LANGUAGES.find((lang) => lang.code === newLocale)
+        if (!foundLang) return;
+
+        setLang(foundLang)
+        startTransition(() => {
+            setUserLocale(newLocale)
+        })
 
     }
+
+    useEffect(() => {
+        const localePromise = getUserLocale()
+
+        localePromise.then((userLocale) => {
+            updateLocale(userLocale)
+            return userLocale
+        })
+    }, [])
+
     return (
         <div>
             <button onClick={handleDropdownClick} className="bg-white dark:bg-inputBG dark:text-white rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-2 font-semibold" type="button">

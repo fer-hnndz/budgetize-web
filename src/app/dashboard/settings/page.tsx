@@ -2,13 +2,23 @@
 
 import Tabs from "../../../components/tabs"
 import locales from "../../../utils/locales"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useTransition } from "react"
+import { getUserLocale, setUserLocale } from "../../../services/locale"
+import { getUserCurrency, setUserCurrency } from "../../../services/currency"
+import LanguageDropwdown from "../../../components/language-dropdown"
 
 export default function Settings() {
 
     let [locale, setLocale] = useState("en")
-    function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    let [pending, startTransition] = useTransition()
+
+    function handleLanguageChange(event: React.ChangeEvent<HTMLSelectElement>) {
         setLocale(event.target.value)
+
+        startTransition(() => {
+            setUserLocale(event.target.value)
+        })
+
     }
 
     return (
@@ -18,13 +28,7 @@ export default function Settings() {
                 <h1>Settings - {locale}</h1>
 
                 <h2>Language</h2>
-                <select className="p-2 bg-white dark:bg-dark dark:text-white border rounded-md border-zinc-600z" defaultValue="" onChange={handleChange}>
-                    {locales.map((locale: string) => (
-                        <option key={locale} value={locale}>
-                            {locale}
-                        </option>
-                    ))}
-                </select>
+                <LanguageDropwdown parentCallback={handleLanguageChange} />
             </div>
         </>
 

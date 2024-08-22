@@ -16,14 +16,6 @@ import { getUserCurrency } from "../../services/currency";
 
 export default function Home() {
 
-
-  useEffect(() => {
-    const curr = getUserCurrency()
-
-    if (!curr) redirect("/setup")
-
-  })
-
   const t = useTranslations("Dashboard")
   return (
     <>

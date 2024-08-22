@@ -9,5 +9,5 @@ export async function setUserLocale(locale: string) {
 }
 
 export async function getUserLocale() {
-    return cookies().get(COOKIE) || "en"
+    return cookies().get(COOKIE)?.value || "en"
 }
