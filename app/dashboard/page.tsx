@@ -1,18 +1,28 @@
+"use client"
+
 import Tabs from "../../components/tabs"
 import MonthlyBalance from "../../components/monthly-balance"
 import AccountsTable from '../../components/accounts-table'
-import Account from '../../utils/account'
 import ButtonLink from "../../components/button-link";
 import React from 'react';
-import { Metadata } from 'next'
 import { useTranslations } from "next-intl";
+import localStorageDB from "localstoragedb";
 import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 // export const metadata: Metadata = {
 //   title: "Budgetize | Dashboard",
 // }
 
 export default function Home() {
+
+
+  useEffect(() => {
+    const curr = localStorage.getItem("mainCurrency")
+
+    //if (!curr) redirect("/setup",)
+  })
+
   const t = useTranslations("Dashboard")
   return (
     <>

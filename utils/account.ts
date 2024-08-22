@@ -25,9 +25,10 @@ export default class Account {
 
         if (!db.tableExists("accounts")) return accounts;
 
-        db.queryAll("accounts", {}).forEach((acc) => {
-            let accountTransactions = db.queryAll("transactions", { account_id: acc.ID })
-            accounts.push(new Account(acc.ID, acc.name, acc.currency, accountTransactions));
+        db.queryAll("accounts", { query: {} }).forEach((acc) => {
+            let accountTransactions = db.queryAll("transactions", { query: { account_id: acc.ID } })
+            let transactions = accountTransactions.map((trans) => new Transaction(trans.ID, trans.account_id, trans.amount, trans.description, trans.timestamp, trans.visible));
+            accounts.push(new Account(acc.ID, acc.name, acc.currency, transactions));
         });
 
         return accounts;

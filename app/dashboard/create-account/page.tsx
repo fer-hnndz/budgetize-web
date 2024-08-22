@@ -4,7 +4,7 @@ import Tabs from "../../../components/tabs";
 import Button from "../../../components/button";
 import CurrencyDropdown from "../../../components/currency-dropdown";
 import localStorageDB from "localstoragedb";
-import { FaDribbble } from "react-icons/fa";
+import { redirect } from "next/navigation";
 
 export default function CreateAccount() {
     const [accountName, setAccountName] = useState("");
@@ -33,6 +33,7 @@ export default function CreateAccount() {
         setInitialBalance(0);
         setSelectedCurrency("");
         alert("Account saved successfully!");
+        redirect("/dashboard");
     }
 
     function updateCurrency(code) {
@@ -58,7 +59,7 @@ export default function CreateAccount() {
                     </div>
                     <div className="flex flex-col px-4">
                         <h1 className="pl-1 text-xs mb-1">Currency</h1>
-                        <CurrencyDropdown callback={updateCurrency} />
+                        <CurrencyDropdown parentCallback={updateCurrency} />
                     </div>
                     <div className="flex flex-col px-4">
                         <h1 className="pl-1 text-xs mb-1">Initial Balance</h1>
