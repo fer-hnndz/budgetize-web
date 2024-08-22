@@ -12,5 +12,10 @@
         "tabTransactions": "Transacciones",
         "tabBudgets": "Presupuestos",
         "tabSettings": "Ajustes"
+    },
+    "Setup": {
+        "mainCurrency": "¿Cuál es tu moneda principal?",
+        "language": "Selecciona tu idioma preferido",
+        "saveSettings": "Guardar Ajustes"
     }
 }

@@ -20,7 +20,7 @@ export default function Home() {
   useEffect(() => {
     const curr = localStorage.getItem("mainCurrency")
 
-    //if (!curr) redirect("/setup",)
+    if (!curr) redirect("/setup",)
   })
 
   const t = useTranslations("Dashboard")
