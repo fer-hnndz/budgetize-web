@@ -3,14 +3,25 @@
 import { useTranslations, useFormatter } from "next-intl";
 import Account from "../utils/account";
 import { useEffect, useState } from "react";
+import localStorageDB from "localstoragedb";
 
 export default function AccountsTable() {
     let placeholder: Account[] = [] // infer array type to react
     let [accounts, setAccounts] = useState(placeholder);
 
     useEffect(() => {
+        let db = new localStorageDB("budgetize", localStorage);
+
+        if (!db.tableExists("accounts") || !db.tableExists("transactions")) {
+            db.createTable("accounts", ["name", "currency"])
+            db.createTable("transactions", ["account_id", "amount", "transaction", "description", "timestamp", "visible"])
+            db.commit()
+        }
+
+
         let newAccounts = Account.getAccountsFromStorage(localStorage);
         setAccounts(newAccounts)
+        console.log(newAccounts)
     }, [])
 
     const t = useTranslations("Dashboard")
@@ -27,7 +38,7 @@ export default function AccountsTable() {
                 {accounts.map((account) => (
                     <tr key={account.name}>
                         <td className="hover:bg-orange-500 transition duration-100 ease-in-out">{account.name}</td>
-                        <td className="hover:bg-orange-500">{format.number(account.balance, { style: "currency", currency: account.currency, currencyDisplay: "code" })}</td>
+                        <td className="hover:bg-orange-500">{format.number(account.getBalance(), { style: "currency", currency: account.currency, currencyDisplay: "code" })}</td>
                     </tr>
                 ))}
             </tbody>
