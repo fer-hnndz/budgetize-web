@@ -2,11 +2,14 @@
 
 import CurrencyDropdown from "../../components/currency-dropdown";
 import LanguageDropwdown from "../../components/language-dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Button from "../../components/button";
 import { useTransition } from "react";
 import { setUserLocale } from "../../services/locale"
+import { storeSettings, navigate } from "../../services/settings";
+import { getUserCurrency } from "../../services/currency";
+import { redirect } from "next/navigation"
 
 export default function setup() {
     let [currency, setCurrency] = useState("USD")
@@ -26,8 +29,15 @@ export default function setup() {
     }
 
     function saveSettings() {
-
+        // Locale is already saved in the handleLangChange function
+        storeSettings(currency)
     }
+
+    useEffect(() => {
+        const curr = getUserCurrency()
+
+        if (curr) redirect("/dashboard")
+    })
 
     const t = useTranslations("Setup")
     return (
@@ -46,9 +56,11 @@ export default function setup() {
                 </div>
             </div>
 
-            <div className="pt-8 flex justify-center items-center">
-                <Button text={t("saveSettings")} variant="success" onClick={saveSettings} />
-            </div>
+            <form action={navigate}>
+                <div className="pt-8 flex justify-center items-center">
+                    <Button text={t("saveSettings")} variant="success" onClick={saveSettings} />
+                </div>
+            </form>
         </>
     )
 }

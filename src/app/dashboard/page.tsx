@@ -6,9 +6,9 @@ import AccountsTable from '../../components/accounts-table'
 import ButtonLink from "../../components/button-link";
 import React from 'react';
 import { useTranslations } from "next-intl";
-import localStorageDB from "localstoragedb";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
+import { getUserCurrency } from "../../services/currency";
 
 // export const metadata: Metadata = {
 //   title: "Budgetize | Dashboard",
@@ -18,9 +18,10 @@ export default function Home() {
 
 
   useEffect(() => {
-    const curr = localStorage.getItem("mainCurrency")
+    const curr = getUserCurrency()
 
-    if (!curr) redirect("/setup",)
+    if (!curr) redirect("/setup")
+
   })
 
   const t = useTranslations("Dashboard")
