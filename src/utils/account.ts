@@ -33,7 +33,6 @@ export default class Account {
 
         return accounts;
     }
-<<<<<<< HEAD:utils/account.ts
 
     static fromId(id: number, storage: typeof localStorage): Account | null {
         const db = new localStorageDB("budgetize", localStorage)
@@ -56,6 +55,3 @@ export default class Account {
 
     }
 }
-=======
-} 
->>>>>>> 4e05c697b48880aa3dbef7763abe4e411fdf7b7b:src/utils/account.ts
