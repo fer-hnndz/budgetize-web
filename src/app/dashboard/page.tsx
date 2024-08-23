@@ -1,4 +1,4 @@
-"use server"
+"use client"
 
 import Tabs from "../../components/tabs"
 import MonthlyBalance from "../../components/monthly-balance"
@@ -13,9 +13,7 @@ import { redirect } from "next/navigation";
 //   title: "Budgetize | Dashboard",
 // }
 
-export default async function Home() {
-  let currency = await getUserCurrency()
-  if (currency === null) redirect("/setup")
+export default function Home() {
 
   const t = useTranslations("Dashboard")
   return (
@@ -23,7 +21,7 @@ export default async function Home() {
       <Tabs active={0} />
       <div className="flex flex-col lg:flex-row lg:gap-x-96 mx-10 content-center justify-center">
         <AccountsTable />
-        <MonthlyBalance income="1000" expense="500" />
+        <MonthlyBalance />
       </div>
 
       <div className="flex flex-auto justify-center mt-8 gap-x-4 mx-4 md:mx-0">
