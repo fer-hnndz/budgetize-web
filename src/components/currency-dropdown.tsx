@@ -4,7 +4,11 @@ import React from "react"
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-export default function CurrencyDropdown({ callback }: { callback: CallableFunction }) {
+/*
+@param {object} props
+@property callback - A function that will be executed to save the currency in the localStorage.
+*/
+export default function CurrencyDropdown({ parentCallback }: { parentCallback: CallableFunction }) {
     const CURRENCIES: { code: string, name: string }[] = [
         { code: "USD", name: "United States Dollar" },
         { code: "EUR", name: "Euro" },
@@ -28,9 +32,11 @@ export default function CurrencyDropdown({ callback }: { callback: CallableFunct
         { code: "PAB", name: "Panamanian Balboa" },
     ]
 
+    // Set a random currency as default
     let [currency, setCurrency] = useState(CURRENCIES[0])
-    callback(currency.code)
+    parentCallback(currency.code)
 
+    // Hides/Shows the dropwdown
     function handleDropdownClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
         const dropdown = document.querySelector("#dropdown")
@@ -39,6 +45,7 @@ export default function CurrencyDropdown({ callback }: { callback: CallableFunct
         }
     }
 
+    // Updates search results from the dropdown
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         const search = event.target.value
 
@@ -63,6 +70,7 @@ export default function CurrencyDropdown({ callback }: { callback: CallableFunct
 
     }
 
+    // Updates the selected currency
     function handleCurrency(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault()
         const dropdown = document.querySelector("#dropdown")
@@ -75,6 +83,7 @@ export default function CurrencyDropdown({ callback }: { callback: CallableFunct
         const currency = CURRENCIES.find((currency) => currency.code === selectedCurrency)
         if (!currency) return;
         setCurrency(currency)
+        parentCallback(currency.code) // Send to parent the current currency
 
         // Close the dropdown
         dropdown.classList.toggle("hidden")

@@ -25,22 +25,15 @@ export default class Account {
 
         if (!db.tableExists("accounts")) return accounts;
 
-        db.queryAll("accounts", {}).forEach((acc) => {
+        db.queryAll("accounts", { query: {} }).forEach((acc) => {
             let accountTransactions = db.queryAll("transactions", { query: { account_id: acc.ID } })
-
-            let transactions: Transaction[] = []
-
-            accountTransactions.forEach((transaction) => {
-                transactions.push(
-                    new Transaction(transaction.account_id, transaction.amount, transaction.description, transaction.timestamp, transaction.visible)
-                )
-            })
-
+            let transactions: Transaction[] = accountTransactions.map((trans) => new Transaction(trans.ID, trans.account_id, trans.amount, trans.description, trans.timestamp, trans.visible));
             accounts.push(new Account(acc.ID, acc.name, acc.currency, transactions));
         });
 
         return accounts;
     }
+<<<<<<< HEAD:utils/account.ts
 
     static fromId(id: number, storage: typeof localStorage): Account | null {
         const db = new localStorageDB("budgetize", localStorage)
@@ -63,3 +56,6 @@ export default class Account {
 
     }
 }
+=======
+} 
+>>>>>>> 4e05c697b48880aa3dbef7763abe4e411fdf7b7b:src/utils/account.ts
