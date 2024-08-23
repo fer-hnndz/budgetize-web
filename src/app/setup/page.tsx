@@ -11,7 +11,7 @@ import { storeSettings, navigate } from "../../services/settings";
 import { getUserCurrency } from "../../services/currency";
 import { redirect } from "next/navigation"
 
-export default function setup() {
+export default function Setup() {
     let [currency, setCurrency] = useState("USD")
     let [lang, setLang] = useState("en")
     let [pending, startTransition] = useTransition()
@@ -34,9 +34,10 @@ export default function setup() {
     }
 
     useEffect(() => {
-        const curr = getUserCurrency()
+        getUserCurrency().then((curr) => {
+            if (curr) redirect("/dashboard")
+        })
 
-        if (curr) redirect("/dashboard")
     })
 
     const t = useTranslations("Setup")
