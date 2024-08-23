@@ -12,8 +12,3 @@ export async function setUserCurrency(currency: string) {
 export async function getUserCurrency() {
     return cookies().get(COOKIE)?.value || null
 }
-
-export async function userCheck() {
-    const currency = getUserCurrency()
-    if (currency === null) redirect("/setup")
-}
