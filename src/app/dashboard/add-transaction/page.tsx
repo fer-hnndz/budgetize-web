@@ -8,8 +8,8 @@ function onChange(event: any, setter: any) {
 }
 export default function AddTransaction() {
 
-    let accounts = []
-    const [selectedAccount, setSelectedAccount] = useState(accounts[0])
+    let accounts: Account[] = []
+    let [selectedAccount, setSelectedAccount] = useState(accounts[0])
 
     function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
         //setSelectedAccount(accounts.find(account => account.name === event.target.value) as Account)

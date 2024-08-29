@@ -3,17 +3,20 @@
 import React from "react"
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
-import { useEffect, useTransition } from "react";
+import { useEffect, useTransition, useRef } from "react";
 import { getUserLocale, setUserLocale } from "../services/locale";
 
 export default function LanguageDropwdown() {
-    const SUPPORTED_LANGUAGES: { code: string, name: string }[] = [
-        { code: "en", name: "English" },
-        { code: "es", name: "Español" },
-    ]
+
+    let supportedLanguages = useRef(
+        [
+            { code: "en", name: "English" },
+            { code: "es", name: "Español" },
+        ] as { code: string, name: string }[]
+    )
 
     // Set english language as default
-    let [lang, setLang] = useState(SUPPORTED_LANGUAGES[0])
+    let [language, setLanguage] = useState(supportedLanguages.current[0])
     let [pending, startTransition] = useTransition()
 
     // Hides/Shows the dropwdown
@@ -59,42 +62,42 @@ export default function LanguageDropwdown() {
 
         let selectedLang = event.currentTarget.parentElement?.getAttribute("data-key")
         if (!selectedLang) return;
-        updateLocale(selectedLang)
+        displayNewLanguage(selectedLang)
+        setLanguage(supportedLanguages.current.find((lang) => lang.code === selectedLang) as { code: string, name: string })
 
         // Close the dropdown
         dropdown.classList.toggle("hidden")
     }
 
-    function updateLocale(newLocale: string) {
-        const foundLang = SUPPORTED_LANGUAGES.find((lang) => lang.code === newLocale)
-        if (!foundLang) return;
-
-        setLang(foundLang)
+    function displayNewLanguage(newLocale: string) {
         startTransition(() => {
             setUserLocale(newLocale)
         })
 
     }
 
+    // After render, fetch the user's locale and update the dropdown
     useEffect(() => {
-        const localePromise = getUserLocale()
+        const fetchUserLocale = async () => {
+            const locale = await getUserLocale()
+            const localeObj = supportedLanguages.current.find((lang) => lang.code === locale)
 
-        localePromise.then((userLocale) => {
-            updateLocale(userLocale)
-            return userLocale
-        })
-    }, [])
+            if (localeObj) setLanguage(localeObj)
+        }
+
+        fetchUserLocale()
+    }, [language])
 
     return (
         <div>
             <button onClick={handleDropdownClick} className="bg-white dark:bg-inputBG dark:text-white rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-2 font-semibold" type="button">
-                {lang.name}<FaAngleDown className="mt-1 ml-2" />
+                {language.name}<FaAngleDown className="mt-1 ml-2" />
             </button>
 
             <div id="langDropdown" className="z-10 hidden bg-dark rounded-lg shadow w-44 dark:bg-white absolute">
                 <input className="w-auto h-fit py-1 text-sm m-1 border rounded-lg outline-none border-zinc-600 text-white dark:text-black" placeholder="Search Language" type="text" onChange={handleSearch}></input>
                 <ul className="py-2 text-sm text-white dark:text-black min-h-40 max-h-96 overflow-y-scroll">
-                    {SUPPORTED_LANGUAGES.map((language) => (
+                    {supportedLanguages.current.map((language) => (
                         <li key={language.code} data-key={language.code}>
                             <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleLangChange}>{language.name}</a>
                         </li>

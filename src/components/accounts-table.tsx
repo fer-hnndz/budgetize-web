@@ -6,22 +6,19 @@ import { useEffect, useState } from "react";
 import localStorageDB from "localstoragedb";
 
 export default function AccountsTable() {
-    let placeholder: Account[] = [] // infer array type to react
-    let [accounts, setAccounts] = useState(placeholder);
+    let [accounts, setAccounts] = useState([] as Account[])
 
     useEffect(() => {
         let db = new localStorageDB("budgetize", localStorage);
 
         if (!db.tableExists("accounts") || !db.tableExists("transactions")) {
             db.createTable("accounts", ["name", "currency"])
-            db.createTable("transactions", ["account_id", "amount", "transaction", "description", "timestamp", "visible"])
+            db.createTable("transactions", ["account_id", "amount", "transaction", "description", "timestamp", "category", "visible",])
             db.commit()
         }
 
-
         let newAccounts = Account.getAccountsFromStorage(localStorage);
         setAccounts(newAccounts)
-        console.log(newAccounts)
     }, [])
 
     const t = useTranslations("Dashboard")

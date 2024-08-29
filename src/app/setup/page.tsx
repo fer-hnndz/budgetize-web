@@ -53,7 +53,7 @@ export default function Setup() {
 
                 <div className="flex flex-col gap-y-1 justify-center items-center">
                     <h2 className="font-semibold text-xl">{t("language")}</h2>
-                    <LanguageDropwdown parentCallback={handleLangChange} />
+                    <LanguageDropwdown />
                 </div>
             </div>
 
