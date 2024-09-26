@@ -99,21 +99,25 @@ export default function CurrencyDropdown({ parentCallback, dropdownId }: { paren
     }, [])
 
     return (
-        <div className="overflow-clip">
+        <div>
             <span className="text-black dark:text-white text-lg font-bold">Currency</span>
             <button onClick={handleDropdownClick} className="dark:border-0 border-2 shadow bg-white dark:bg-inputBG dark:text-white rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-2 font-semibold" type="button">
                 ({currency.code}) {currency.name}<FaAngleDown className="mt-1 ml-2" />
             </button>
 
-            <div id={dropdownId} className="z-10 hidden bg-dark rounded-lg shadow w-fit p-4 overflow-clip dark:bg-white absolute">
+            <div id={dropdownId} className="z-10 hidden bg-dark dark:bg-white absolute rounded-lg shadow h-1/4 md:h-1/3 w-fit p-4">
                 <Input type="text" name="Search" placeholder="Search Currency" onChange={handleSearch} />
-                <ul className="py-2 text-sm text-white dark:text-black min-h-40 max-h-96 overflow-y-scroll">
-                    {CURRENCIES.map((currency) => (
-                        <li key={currency.code}>
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={handleCurrency}>({currency.code}) {currency.name}</a>
-                        </li>
-                    ))}
-                </ul>
+
+                <div className="h-4/5">
+                    <ul className="text-sm text-white h-full dark:text-black overflow-y-scroll scroll-mt-4 snap-y gap-y-1.5 flex flex-col">
+                        {CURRENCIES.map((currency) => (
+                            <li key={currency.code}>
+                                <a href="#" className="h-fit w-fit p-1 rounded block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white snap-end" onClick={handleCurrency}>({currency.code}) {currency.name}</a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
             </div>
         </div>
     )

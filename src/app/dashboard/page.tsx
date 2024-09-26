@@ -18,10 +18,13 @@ import Button from "../../components/button";
 export default function Home() {
   function showAccountModal() {
     const modal = document.getElementById("addAccountModal")
-    if (!modal) {
+    const body = document.querySelector("body")
+    if (!modal || !body) {
       alert("Cannot add account. Try again later.")
       return
     }
+
+    //body.classList.add("overflow")
     modal.classList.remove("hidden")
   }
 

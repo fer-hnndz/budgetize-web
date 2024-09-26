@@ -56,7 +56,7 @@ export default function AddAccountModal() {
     }
 
     return (
-        <div id="addAccountModal" className="hidden">
+        <div id="addAccountModal" className="hidden fixed">
             <div className="absolute z-10 w-screen h-screen bg-opacity-40 bg-black flex justify-center flex-col items-center">
                 <div className="min-w-fit max-h-content p-8 bg-white dark:bg-dark text-black dark:text-white rounded-md shadow-lg">
                     <h2 className="text-4xl font-bold mb-8">Create Account</h2>
