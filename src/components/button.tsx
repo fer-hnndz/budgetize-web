@@ -1,6 +1,12 @@
-
+import { MouseEvent } from "react";
+interface ButtonProps {
+    text: string,
+    variant: Variant,
+    onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+}
 type Variant = "primary" | "error" | "success" | "warning"
-export default function Button({ text, variant, onClick }: { text: string, variant: Variant, onClick: CallableFunction }) {
+
+export default function Button({ text, variant, onClick }: ButtonProps) {
 
     let bgColor = ""
 

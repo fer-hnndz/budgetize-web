@@ -1,15 +1,18 @@
 "use client";
 
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import { Currency } from "../interfaces";
+import Input from "./input";
 
 /*
 @param {object} props
-@property callback - A function that will be executed to save the currency in the localStorage.
+@property callback - A function from the parent component to send the selected currency
+@property dropdownId - The id of the dropdown
 */
-export default function CurrencyDropdown({ parentCallback }: { parentCallback: CallableFunction }) {
-    const CURRENCIES: { code: string, name: string }[] = [
+export default function CurrencyDropdown({ parentCallback, dropdownId }: { parentCallback: CallableFunction, dropdownId: string }) {
+    const CURRENCIES: Currency[] = [
         { code: "USD", name: "United States Dollar" },
         { code: "EUR", name: "Euro" },
         { code: "GBP", name: "British Pound Sterling" },
@@ -32,14 +35,13 @@ export default function CurrencyDropdown({ parentCallback }: { parentCallback: C
         { code: "PAB", name: "Panamanian Balboa" },
     ]
 
-    // Set a random currency as default
+    // This component has 2 useState hooks, one for the component's state and another for the parent's state
     let [currency, setCurrency] = useState(CURRENCIES[0])
-    parentCallback(currency.code)
 
     // Hides/Shows the dropwdown
     function handleDropdownClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
-        const dropdown = document.querySelector("#dropdown")
+        const dropdown = document.querySelector(`#${dropdownId}`)
         if (dropdown) {
             dropdown.classList.toggle("hidden")
         }
@@ -49,7 +51,7 @@ export default function CurrencyDropdown({ parentCallback }: { parentCallback: C
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         const search = event.target.value
 
-        const dropdown = document.querySelector("#dropdown")
+        const dropdown = document.querySelector(`#${dropdownId}`)
         if (!dropdown) return;
 
         const items = dropdown.querySelectorAll("li")
@@ -73,7 +75,7 @@ export default function CurrencyDropdown({ parentCallback }: { parentCallback: C
     // Updates the selected currency
     function handleCurrency(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault()
-        const dropdown = document.querySelector("#dropdown")
+        const dropdown = document.querySelector(`#${dropdownId}`)
         if (!dropdown) return;
 
         let selectedCurrency = event.currentTarget.textContent
@@ -89,14 +91,22 @@ export default function CurrencyDropdown({ parentCallback }: { parentCallback: C
         dropdown.classList.toggle("hidden")
 
     }
+
+
+    // Once done rendering, send the current currency to the parent
+    useEffect(() => {
+        parentCallback(currency)
+    }, [])
+
     return (
-        <div>
-            <button onClick={handleDropdownClick} className="bg-white dark:bg-inputBG dark:text-white rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-2 font-semibold" type="button">
+        <div className="overflow-clip">
+            <span className="text-black dark:text-white text-lg font-bold">Currency</span>
+            <button onClick={handleDropdownClick} className="dark:border-0 border-2 shadow bg-white dark:bg-inputBG dark:text-white rounded-lg text-sm flex flex-row gap-x align-middle px-2 py-2 font-semibold" type="button">
                 ({currency.code}) {currency.name}<FaAngleDown className="mt-1 ml-2" />
             </button>
 
-            <div id="dropdown" className="z-10 hidden bg-dark rounded-lg shadow w-44 dark:bg-white absolute">
-                <input className="w-auto h-fit py-1 text-sm m-1 border-1 rounded-lg border-zinc-600 text-white dark:text-black" placeholder=" Search Currency" type="text" onChange={handleSearch}></input>
+            <div id={dropdownId} className="z-10 hidden bg-dark rounded-lg shadow w-fit p-4 overflow-clip dark:bg-white absolute">
+                <Input type="text" name="Search" placeholder="Search Currency" onChange={handleSearch} />
                 <ul className="py-2 text-sm text-white dark:text-black min-h-40 max-h-96 overflow-y-scroll">
                     {CURRENCIES.map((currency) => (
                         <li key={currency.code}>
@@ -105,6 +115,6 @@ export default function CurrencyDropdown({ parentCallback }: { parentCallback: C
                     ))}
                 </ul>
             </div>
-        </div >
+        </div>
     )
 }
